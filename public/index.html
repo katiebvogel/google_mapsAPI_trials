@@ -1,0 +1,145 @@
+
+<!doctype html>
+<!-- Declares meanMapApp as the starting Angular module -->
+<html class="no-js" ng-app="MeanMapApp">
+<head>
+    <meta charset="utf-8">
+    <title>Scotch MEAN Map</title>
+    <meta name="description" content="An example demonstrating Google Map integration with MEAN Apps">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <!-- Holder JS -->
+    <!-- <script src="vendors/holderjs/holder.js"></script> -->
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvg3_r7rbX0ylxvpWSwX8jL5DIvsQGibc&Libraries=drawing"></script>
+    <!-- Modernizr -->
+    <!-- <script src="vendors/modernizr/bin/modernizr"></script> -->
+    <!-- JS Source -->
+    <script src="vendors/jquery/dist/jquery.js"></script>
+    <script src="vendors/angular/angular.js"></script>
+    <script src="vendors/angular-route/angular-route.js"></script>
+    <script src="vendors/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+
+    <script src="app.js"></script>
+    <script src="addCtrl.js"></script>
+    <script src="gservice.js"></script>
+</head>
+<body ng-controller = "addCtrl">
+<div class="container">
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li active><a href="">Join a Squad</a></li>
+            <li disabled><a href="">Find SquadPals</a></li>
+        </ul>
+        <h3 class="text-muted">Katie's Trial MEAN MapApp</h3>
+    </div>
+    <!-- Map and Side Panel -->
+    <div class="row content">
+        <!-- Google Map -->
+        <div class="col-md-7">
+            <div id="map" style = "width:500px; height:500px"</div>
+        </div>
+        <!-- Side Panel -->
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <!-- Panel Title -->
+                <div class="panel-heading">
+                    <h2 class="panel-title text-center">Join the BikeSquad! <span class="glyphicon glyphicon-map-marker"></span></h2>
+                </div>
+                <!-- Panel Body -->
+                <div class="panel-body">
+                    <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
+                    <form name ="addForm" novalidate>
+                        <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
+                        <div class="form-group">
+                            <label for="username">Username <span class="badge">Some fields required</span></label>
+                            <input type="text" class="form-control" id="username" placeholder="BikeTronic" ng-model="formData.username" required>
+                        </div>
+                        <label class="radio control-label">Gender</label>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="radiomale" value="Male" ng-model="formData.gender">
+                                Male
+                            </label>
+                        </div>
+                        <div class="radio" required>
+                            <label>
+                                <input type="radio" name="optionsRadios" id="radiofemale" value="Female" ng-model="formData.gender">
+                                Female
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="radioother" value="No comment" ng-model="formData.gender">
+                              No Comment
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" class="form-control" id="age" placeholder="22" ng-model="formData.age" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="language">Favorite Language</label>
+                            <input type="text" class="form-control" id="language" placeholder="TrashTalk" ng-model="formData.favlang"required>
+                        </div>
+                        <div class="form-group">
+                            <label for="latitude">Latitude</label>
+                            <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="longitude">Longitude</label>
+                            <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="verified">HTML5 Verified Location? <span><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>
+                            <input type="text" class="form-control" id="verified" placeholder= "Nope (Thanks for spamming my map...)" ng-model="formData.htmlverified" readonly>
+                        </div>
+                        <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
+                        <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <!-- Footer -->
+    <!-- <div class="footer">
+        <p class="text-center"><span class="glyphicon glyphicon-check"></span> Created by Ahmed Haque for Scotch IO -
+            <a href="https://scotch.io/">App Tutorial</a> | <a href="https://github.com/afhaque/MeanMapAppV2.0">Github Repo</a></p>
+            <p ng-repeat="user in users">
+              {{user.username}}
+            </p>
+    </div> -->
+</div>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html ng-app="mapApp">
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <script src= "angular/angular.min.js" type="text/javascript"></script>
+    <script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvg3_r7rbX0ylxvpWSwX8jL5DIvsQGibc&libraries=drawing"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="client.js" type="text/javascript" ></script>
+
+
+  </head>
+  <body ng-controller="MainController as main">
+
+    <div>
+        {{main.message}}
+    </div>
+    <button ng-click="main.initMap()">Get Map</button>
+    <div id = "map">
+      {{main.map}}
+    </div>
+
+  </body>
+</html> -->
